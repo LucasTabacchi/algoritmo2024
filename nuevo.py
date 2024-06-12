@@ -187,3 +187,8 @@ names = ['Juan', 'Julian', 'Maria', 'Ana', 'Julieta', 'Jose']
 for name in names:
     if name.startswith("J"):
         print(name)
+
+
+lista_num = [1,2,3,4,5,6]
+
+print(lista_num.index(6))

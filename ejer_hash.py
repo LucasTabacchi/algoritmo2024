@@ -2,7 +2,6 @@ from random import randint, choice
 
 tipos = ['Fuego', 'Agua', 'Planta', 'Eléctrico', 'Roca', 'Psíquico']
 
-# Funciones hash
 def hash_tipos(pokemon):
     return pokemon.split('-')[0].split(',')
 
@@ -72,18 +71,6 @@ for numero in tabla_numero:
 
 print("-")
 
-# print("Pokémons cuyos números terminan en 3:")
-# for pokemon in tabla_numero[3]:
-#     print(pokemon)
-
-# print("Pokémons cuyos números terminan en 7:")
-# for pokemon in tabla_numero[7]:
-#     print(pokemon)
-
-# print("Pokémons cuyos números terminan en 9:")
-# for pokemon in tabla_numero[9]:
-#     print(pokemon)
-
 print("Pokémons cuyos números terminan en 3:")
 list_3 = tabla_numero.get(3, [])
 print(list_3)
@@ -122,15 +109,6 @@ for lista in tabla_nivel.values():
 print("-")
 
 tipos_especificos = ['Acero', 'Fuego', 'Eléctrico', 'Hielo']
-# print("Pokémons de los tipos Acero, Fuego, Eléctrico e Hielo:")
-# for tipo in tipos_especificos:
-#     if tipo in tabla_tipo:
-#         print(f"Tipo {tipo}:")
-#         for pokemon in tabla_tipo[tipo]:
-#             print(pokemon)
-#     else:
-#         print(f"\nTipo {tipo}: No hay Pokémon de este tipo.")
-
 
 for tipo in tipos_especificos:
     if tipo in tabla_tipo.keys():

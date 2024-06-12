@@ -44,16 +44,6 @@ lista_entrenadores.sort(key=by_name)
 
 show_list_list('Entrenador','Pokemons',lista_entrenadores)
 
-
-# listar_p_entrenador = input('ingrese el entrenador')
-
-# for e in lista_entrenadores:
-#     pos = search(lista_entrenadores,'nombre,',listar_p_entrenador)
-#     if pos is not None:
-#         print(lista_entrenadores[pos]['sublist'])
-#     else:
-#         print('el entrenador no esta en la lista')
-
 def cantidad_pokemons(list_entrenadores, nombre_entrenador):
     pos = search(list_entrenadores, 'nombre', nombre_entrenador)
     if pos is not None:
@@ -88,8 +78,7 @@ if mayor is not None:
     for pokemon in mayor['sublist']:
         if pokemon['nivel'] > max_nivel:
             pokemon_mayor_nivel = pokemon
-            # max_nivel = pokemon['nivel']
-    
+
 
 print(f'el entrenador con mas torneos ganados es {nombre_e} y el pokemon que mayor nivel que tiene es {pokemon_mayor_nivel}')
 
@@ -120,15 +109,6 @@ for entrenador in lista_entrenadores:
 
 print("-")
 
-# t_pokemons= ['Agua','Fuego','Volador','Planta']
-# print("Entrenadores que tienen pokemones de tipo fuego,planta,volador o agua: ")
-
-# for entrenador in lista_entrenadores:
-#     for e in entrenador['sublist']:
-#         if e['tipo'] in t_pokemons or e['subtipo'] in t_pokemons:
-#             print(f"{entrenador['nombre']}, Pokemon: {e}")
-
-
 t_pokemons = ['Agua', 'Fuego', 'Volador', 'Planta']
 print("Entrenadores que tienen pokemones de tipo fuego, planta, volador o agua: ")
 
@@ -157,20 +137,10 @@ print('-')
 
 # print(f'el promedio de nivel de los pokemones del {nombre_entrenador} es {promedio}')
 
-
-# # pokem = input('ingrese el pokemon')
-
-# # print('entrenadores con el mismo pokemon: ')
-
-# # for e in lista_entrenadores:
-# #     for p in e['sublist']:
-# #         if p['nombre'] == pokem:
-# #             print(e['nombre'])
-
 def contar_entrenadores_con_pokemon(entrenadores, nombre_pokemon):
     contador = 0
     for entrenador in entrenadores:
-        pokemons_vistos = set()  # Conjunto 
+        pokemons_vistos = set()  
         for pokemon in entrenador['sublist']:
             if pokemon['nombre'] == nombre_pokemon:
                 if pokemon['nombre'] not in pokemons_vistos:
@@ -189,7 +159,7 @@ def mostrar_entrenadores_con_pokemons_repetidos(entrenadores):
     entrenadores_con_repetidos = []
     for entrenador in entrenadores:
         nombres_pokemons = [pokemon['nombre'] for pokemon in entrenador['sublist']]
-        if len(nombres_pokemons) != len(set(nombres_pokemons)):   # Compara la longitud de la lista original con la longitud del conjunto
+        if len(nombres_pokemons) != len(set(nombres_pokemons)):  
             entrenadores_con_repetidos.append(entrenador['nombre'])
     return entrenadores_con_repetidos
             
