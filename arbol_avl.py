@@ -162,35 +162,39 @@ class BinaryTree:
 
         def __delete(root, value):
             value_delete = None
+            extra_data_delete = None
             if root is not None:
                 if root.value > value:
                     # print(f'buscar  a la izquierda de {root.value}')
-                    root.left, value_delete = __delete(root.left, value)
+                    root.left, value_delete, extra_data_delete = __delete(root.left, value)
                 elif root.value < value:
                     # print(f'buscar  a la derecha de {root.value}')
-                    root.right, value_delete = __delete(root.right, value)
+                    root.right, value_delete, extra_data_delete = __delete(root.right, value)
                 else:
                     # print('valor encontrado')
                     value_delete = root.value
+                    extra_data_delete = root.other_value
                     if root.left is None:
                         # print('a la izquierda no hay nada')
-                        return root.right, value_delete
+                        return root.right, value_delete, extra_data_delete 
                     elif root.right is None:
                         # print('a la derecha  no hay nada')
-                        return root.left, value_delete
+                        return root.left, value_delete, extra_data_delete
                     else:
                         # print('tiene ambos hijos')
                         root.left, replace_node = __replace(root.left)
                         root.value = replace_node.value
+                        root.other_value = replace_node.other_value
                         # return root, value_delete
                     root = self.balancing(root)
                     self.update_height(root)
-            return root, value_delete
+            return root, value_delete, extra_data_delete
 
         delete_value = None
+        delete_extra_value = None
         if self.root is not None:
-            self.root, delete_value = __delete(self.root, value)
-        return delete_value
+            self.root, delete_value, delete_extra_value = __delete(self.root, value)
+        return delete_value, delete_extra_value
 
     def inorden_villanos(self):
         def __inorden_villanos(root):
@@ -227,15 +231,16 @@ class BinaryTree:
         return __contar_super_heroes(self.root)
 
 
-    def delete_node(self, value):
-        def __replace(root):
-            if root.right is None:
-                # print(f'no tiene derecha es el mayor {root.value}')
-                return root.left, root
-            else:
-                # print('seguir buscando nodo par remplaz+ar a la dercha')
-                root.right, replace_node = __replace(root.right)
-                return root, replace_node
+    # def delete_node(self, value):
+    #     def __replace(root):
+    #         if root.right is None:
+    #             # print(f'no tiene derecha es el mayor {root.value}')
+    #             return root.left, root
+    #         else:
+    #             # print('seguir buscando nodo par remplaz+ar a la dercha')
+    #             root.right, replace_node = __replace(root.right)
+    #             return root, replace_node
+            
 
 tree = BinaryTree()
 

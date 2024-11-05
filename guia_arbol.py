@@ -250,3 +250,19 @@ print(f"la altura derecha es {right_height}")
 
 print()
 
+
+tree.proximity_search('La')
+
+value_to_delete = 'La Alforcha Humana'
+delete_value, extra_info = tree.delete_node(value_to_delete)
+print('eliminado', delete_value, extra_info)
+new_name = 'La Antorcha Humana'
+extra_info['nombre'] = new_name
+tree.insert_node(new_name, extra_info)
+tree.proximity_search('La')
+pos = tree.search('La Antorcha Humana')
+if pos:
+    print('encontrado', pos.other_value)
+
+print()
+tree.proximity_search('La')

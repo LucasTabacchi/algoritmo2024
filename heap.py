@@ -1,11 +1,9 @@
-
-
 class HeapMax():
 
     def __init__(self):
         self.elements = []
     
-    def add(self, value):
+    def add(self, value):  #El método add a su vez llamará a float para mantener la propiedad del Heap.
         self.elements.append(value)
         self.float(len(self.elements)-1)
 
@@ -25,22 +23,22 @@ class HeapMax():
         father = (index-1) // 2
         while index > 0 and self.elements[index] > self.elements[father]:
             self.interchange(index, father)
-            index = father
-            father = (index-1) // 2
+            index = father  #Actualización del índice(intercambiar el nuevo elemento con su padre, el nuevo elemento ahora está en la posición donde estaba el padre)
+            father = (index-1) // 2 #Recalcular el nuevo padre: Después de actualizar index, calculamos la posición del nuevo padre del elemento
 
     def sink(self, index):
-        left_child = (index * 2) + 1
+        left_child = (index * 2) + 1 #calcula el indice del hijo izquierdo
         control = True
-        while control and left_child < len(self.elements):
-            right_child = (index * 2) + 2
-            max = left_child
-            if right_child < len(self.elements):
-                if self.elements[right_child] > self.elements[left_child]:
+        while control and left_child < len(self.elements):  #Verifica si el índice del hijo izquierdo está dentro de los límites del array.
+            right_child = (index * 2) + 2 #calcula el indice del hijo derecho
+            max = left_child #asumimos que el hijo izquierdo es el mayor de los dos.
+            if right_child < len(self.elements): #verificamos si existe el hijo derecho
+                if self.elements[right_child] > self.elements[left_child]: #Si el hijo derecho es mayor que el hijo izquierdo, actualizamos max para que apunte al índice del hijo derecho.
                     max = right_child
-            if self.elements[index] < self.elements[max]:
-                self.interchange(index, max)
-                index = max
-                left_child = (index * 2) + 1
+            if self.elements[index] < self.elements[max]: #Comparamos el valor del nodo en index con el valor de su hijo mayor (el que está en max).
+                self.interchange(index, max) #Si el nodo actual es menor que su hijo mayor, los intercambiamos usando el método interchange()
+                index = max  #index ahora está en max
+                left_child = (index * 2) + 1 #vuelve a calcular el indice del hijo izquierdo
             else:
                 control = False
 
@@ -49,13 +47,18 @@ class HeapMax():
         for i in range(len(self.elements)):
             self.float(i)
 
-    def sort(self):
+    def sort(self):  # si aplicamos el sort perdemos las propiedades del monticulo
         result = []
         amount_elements = len(self.elements)
         for i in range(amount_elements):
             value = self.remove()
             result.append(value)
         return result
+    
+    def search(self, value):
+        for index, element in enumerate(self.elements):
+            if element[1][0] == value:
+                return index
     
     def arrive(self, value, priority):
         self.add([priority, value])
@@ -71,6 +74,34 @@ class HeapMax():
                 self.float(index)
             elif new_priority < previous_priority:
                 self.sink(index)
+
+    def agregar_operaciones(self,heap):
+        encargado = input("Ingrese el encargado: ")
+        descripcion = input("Ingrese la descripción: ")
+        hora = input("Ingrese la hora: ")
+        stormtroopers = int(input("Ingrese la cantidad de stormtroopers "))
+
+        if stormtroopers:
+            stormtroopers = stormtroopers
+        else: 
+            stormtroopers = None
+        
+        prioridad = int(input("Ingrese la prioridad (1 - General, 2 - Capitán Phasma, 3 - Snoke/Kylo Ren): "))
+
+        # Validación de prioridad (opcional)
+        if prioridad not in [1, 2, 3]:
+            print("Prioridad inválida. Ingrese 1, 2 o 3.")
+
+        operacion = (encargado, descripcion, hora, prioridad,stormtroopers)
+        heap.arrive(operacion, prioridad)
+
+        continuar = input("¿Desea agregar otra operación? (s/n): ")
+        if continuar.lower() == 's':
+            heap.agregar_operaciones(heap)
+        else:
+            pass
+
+
 
 
 class HeapMin():
@@ -113,7 +144,7 @@ class HeapMin():
             if self.elements[index] > self.elements[min]:
                 self.interchange(index, min)
                 index = min
-                left_child = (index * 2) + 1
+                left_child = (index * 2) + 1 
             else:
                 control = False
 
@@ -129,7 +160,11 @@ class HeapMin():
             value = self.remove()
             result.append(value)
         return result
-
+    
+    def search(self, value):
+        for index, element in enumerate(self.elements):
+            if element[1][0] == value:
+                return index
 
     def arrive(self, value, priority):
         self.add([priority, value])
@@ -148,6 +183,7 @@ class HeapMin():
 
 
 h = HeapMin()
+# h = HeapMax()
 # h.add(17)
 # h.add(3)
 # h.add(20)
@@ -159,8 +195,11 @@ h = HeapMin()
 # elements = [19, 50, 10, 0, 40, 25]
 # h.heapify(elements)
 # print(h.elements)
-# a =input()
+# # a =input()
 # print(h.sort())
+
+# print()
+
 
 # nombres = ['ana', 'juan', 'mario', 'julieta', 'pepito', 'lola']
 # from random import randint
@@ -170,16 +209,19 @@ h = HeapMin()
 #     h.arrive(nombre, priority)
 
 #     print(h.elements)
-#     a = input()
+# #     a = input()
+
+# while len(h.elements) > 0:
+#     print(h.atention())    # al llamar al attencion() que a su vez llama al remove nos devuelve los valores ordenados segun la prioridad
+
+# h.elements = [[1, 'pepito'], [1, 'mario'], [1, 'ana'], [2, 'juan'], [2, 'julieta'], [3, 'lola']]
+
+# h.change_proirity(0, 3)
+
+# print(h.elements)
+# # a = input()
 
 # while len(h.elements) > 0:
 #     print(h.atention())
 
-h.elements = [[1, 'pepito'], [1, 'mario'], [1, 'ana'], [2, 'juan'], [2, 'julieta'], [3, 'lola']]
 
-h.change_proirity(0, 3)
-
-print(h.elements)
-a = input()
-while len(h.elements) > 0:
-    print(h.atention())

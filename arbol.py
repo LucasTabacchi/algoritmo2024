@@ -152,48 +152,6 @@ class BinaryTree:
             if node.right is not None:
                 pendientes.arrive(node.right)
 
-    # def delete_node(self, value):
-    #     def __replace(root):
-    #         if root.right is None:
-    #             # print(f'no tiene derecha es el mayor {root.value}')
-    #             return root.left, root
-    #         else:
-    #             # print('seguir buscando nodo par remplaz+ar a la dercha')
-    #             root.right, replace_node = __replace(root.right)
-    #             return root, replace_node
-
-    #     def __delete(root, value):
-    #         value_delete = None
-    #         if root is not None:
-    #             if root.value > value:
-    #                 # print(f'buscar  a la izquierda de {root.value}')
-    #                 root.left, value_delete = __delete(root.left, value)
-    #             elif root.value < value:
-    #                 # print(f'buscar  a la derecha de {root.value}')
-    #                 root.right, value_delete = __delete(root.right, value)
-    #             else:
-    #                 # print('valor encontrado')
-    #                 value_delete = root.value
-    #                 if root.left is None:
-    #                     # print('a la izquierda no hay nada')
-    #                     return root.right, value_delete
-    #                 elif root.right is None:
-    #                     # print('a la derecha  no hay nada')
-    #                     return root.left, value_delete
-    #                 else:
-    #                     # print('tiene ambos hijos')
-    #                     root.left, replace_node = __replace(root.left)
-    #                     root.value = replace_node.value
-    #                     # return root, value_delete
-    #                 root = self.balancing(root)
-    #                 self.update_height(root)
-    #         return root, value_delete
-
-    #     delete_value = None
-    #     if self.root is not None:
-    #         self.root, delete_value = __delete(self.root, value)
-    #     return delete_value
-
     def delete_node(self, value):
         def __replace(root):
             if root.right is None:
@@ -465,6 +423,79 @@ class BinaryTree:
 
         if self.root is not None:
             __inorden(self.root)
+
+    def search_by_proximity_num_pok(self, search_term):
+        def __coincidence(root):
+            if root is not None:
+                __coincidence(root.left)
+
+                pokemon_number = root.value
+                data_pokemon = root.other_value
+                
+                if search_term in str(pokemon_number): 
+                    print(f"Pokemón:{data_pokemon}")
+
+                __coincidence(root.right)
+
+        if self.root is not None:
+            __coincidence(self.root)
+
+
+    def search_by_coincidence_pok(self, search_term):
+        def __search_by_name(root):
+            if root is not None:
+                __search_by_name(root.left)
+                nombre = root.value
+                if search_term.lower() in nombre.lower():
+                    pokemon = root.other_value 
+                    print(f"Nombre: {pokemon['nombre']}, Número: {pokemon['numero']}, Tipos: {', '.join(pokemon['tipos'])}")
+                __search_by_name(root.right)
+        
+        if self.root is not None:
+            __search_by_name(self.root)
+
+
+    def contar_por_tipos(self, tipo):
+        count = 0  
+        def __inorden(root):
+            nonlocal count 
+            if root is not None:
+                if root.value == tipo:
+                    count += 1
+
+                __inorden(root.left)
+                __inorden(root.right)
+
+        if self.root is not None:
+            __inorden(self.root)
+
+        return count
+    
+    def mostrar_pokemon_por_tipo(self, tipos):
+        for tipo in tipos:
+            print(f"Pokémon de tipo {tipo}:")
+            def __inorden_tipo(root):
+                if root is not None:
+                    __inorden_tipo(root.left)  
+                    if tipo in root.value:  
+                        print(f"- {root.other_value['nombre']}")  
+                    __inorden_tipo(root.right) 
+            
+            __inorden_tipo(self.root) 
+            print() 
+
+    def listado_ascendente_por_numero_nombre(self):
+        def __inorden(root):
+            if root is not None:
+                __inorden(root.left)
+                print(f"{root.other_value['numero']}: {root.other_value['nombre']}")
+                __inorden(root.right) 
+
+        if self.root is not None:
+            __inorden(self.root)
+
+    
+
 
 
     
